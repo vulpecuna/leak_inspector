@@ -1,5 +1,16 @@
 import colorama
+import json
+import os
+import time
 import sys
+
+
+def save_log(log_file_path, data, delay):
+    ok(f"Fetched {log_file_path}.")
+    os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
+    with open(log_file_path, 'w') as json_file:
+        json.dump(data, json_file, indent=4)
+    time.sleep(1)
 
 
 def _print(color, symbol, message):

@@ -19,11 +19,6 @@ def handle_api_request(args, api_endpoint, params, log_file_path):
         time.sleep(15)
         return handle_api_request(args, api_endpoint, params, log_file_path)
 
-    utils.logs.ok(f"Fetched {log_file_path}.")
-    os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
-    with open(log_file_path, 'w') as json_file:
-        json.dump(data, json_file, indent=4)
-
-    time.sleep(1)
+    utils.logs.save_log(log_file_path, data, 1)
 
     return data
