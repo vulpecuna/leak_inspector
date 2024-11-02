@@ -1,5 +1,5 @@
 import json
-import cavalier.info_stealer_check
+import hudsonrocks.info_stealer_check
 import proxynova.email_leaks
 import utils.args
 
@@ -16,7 +16,7 @@ try:
         # Iterate all emails
         for original_email, email_to_test in emails:
             passwords, new_emails = proxynova.email_leaks.get(args, email_to_test)
-            info_stealer = cavalier.info_stealer_check.get(args, email_to_test)
+            info_stealer = hudsonrocks.info_stealer_check.get(args, email_to_test)
 
             if original_email not in result:
                 result[original_email] = {}

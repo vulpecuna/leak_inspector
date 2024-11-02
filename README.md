@@ -3,7 +3,7 @@
 Leak Inspector processes a list of emails to find leaked passwords using external APIs. If similar emails are found with the same exact password, they are processed and assumed to be owned by the same user.
 
 * [ProxyNova API](https://www.proxynova.com/tools/comb): provides API access to the COMB breach
-* [Cavalier API](https://cavalier.hudsonrock.com/docs): provides API access to their known infected devices
+* [HudsonRock API](https://cavalier.hudsonrock.com/docs): provides API access to their known infected devices
 * [Snusbase](https://www.snusbase.com): paid, not tested, not implemented 
 * [Intelx](https://intelx.io/): paid, not tested, not implemented
 * [WeLeakInfo](https://weleakinfo.io/): paid, not tested, not implemented

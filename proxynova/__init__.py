@@ -12,7 +12,7 @@ def handle_api_request(args, api_endpoint, params, log_file_path):
     try:
         data = response.json()
     except json.JSONDecodeError:
-        utils.logs.error(f"Error, received {response.text}.", True)
+        utils.logs.error(f"Error, received '{response.text}'.", True)
 
     if 'exception_message' in data and "No alive nodes." in data['exception_message']:
         utils.logs.info(f"Rate limit exceeded when fetching {log_file_path}.")

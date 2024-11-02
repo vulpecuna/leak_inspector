@@ -1,11 +1,11 @@
-import cavalier
+import hudsonrocks
 import json
 import os
 import utils.logs
 
 
 def get(args, target_email):
-    log_file_path = f'local/log/cavalier/stealer/{target_email}.json'
+    log_file_path = f'local/log/hudsonrocks/stealer/{target_email}.json'
 
     if not os.path.isfile(log_file_path):
         api_endpoint = 'https://cavalier.hudsonrock.com/api/json/v2/osint-tools/search-by-email'
@@ -13,7 +13,7 @@ def get(args, target_email):
             'email': target_email
         }
 
-        data = cavalier.handle_api_request(args, api_endpoint, params, log_file_path)
+        data = hudsonrocks.handle_api_request(args, api_endpoint, params, log_file_path)
     else:
         utils.logs.ok(f"Read {log_file_path}")
         with open(log_file_path, 'r') as json_file:
