@@ -5,7 +5,7 @@ import utils.logs
 
 
 def get(args, target_email):
-    log_file_path = f'local/log/hudsonrocks/stealer/{target_email}.json'
+    log_file_path = f'local/log/hudsonrocks/{target_email}.json'
 
     if not os.path.isfile(log_file_path):
         api_endpoint = 'https://cavalier.hudsonrock.com/api/json/v2/osint-tools/search-by-email'
