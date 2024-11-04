@@ -5,16 +5,17 @@ import os
 
 class ProgramArgs:
     def __init__(self, args):
-        with open(args.input_file, 'r') as file:
-            data = json.load(file)
-            emails = []
+        emails = []
+
+        for input_file in args.scrapped_data:
+            with open(input_file, 'r') as file:
+                data = json.load(file)
             for entry in data['emails']:
                 for email in entry['emails']:
                     emails.append((email, email))
 
-            self.emails = list(set(emails))
-
-        self.input_file = args.input_file
+        self.emails = list(set(emails))
+        self.sources = args.scrapped_data
 
 
 def _file_exists(file_path):
@@ -26,11 +27,9 @@ def _file_exists(file_path):
 
 def parse():
     parser = argparse.ArgumentParser(description="Leak Inspector")
-    input_options = parser.add_mutually_exclusive_group(required=True)
-    input_options.add_argument(
-        '-f',
-        metavar='input.json',
-        dest='input_file',
+    parser.add_argument(
+        'scrapped_data',
+        nargs='+',
         type=_file_exists,
         help='Linkedin OSINT tool output file.'
     )

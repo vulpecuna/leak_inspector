@@ -9,6 +9,11 @@ def handle_api_request(args, api_endpoint, params, log_file_path):
     response = requests.get(api_endpoint,
                             params=params)
 
+    if response.status_code == 502:
+        utils.logs.info(f"Received 502 Bad Gateway for {log_file_path}.")
+        time.sleep(5)
+        return handle_api_request(args, api_endpoint, params, log_file_path)
+
     try:
         data = response.json()
     except json.JSONDecodeError:

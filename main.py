@@ -52,26 +52,32 @@ try:
                 added_emails[next_src].append(email)
     emails_next = {}
 finally:
-    with open(args.input_file, 'r') as file_data:
-        data = json.load(file_data)
+    final_result = []
+    for input_file in args.sources:
+        with open(input_file, 'r') as file:
+            data = json.load(file)
 
-    for entry in data['emails']:
-        passwords = []
-        emails = entry['emails']
-        info_stealer = []
-        for email in entry['emails']:
-            if email in result:
-                if 'passwords' in result[email]:
-                    passwords.extend(result[email]['passwords'])
-                if 'info_stealer' in result[email]:
-                    info_stealer.extend(result[email]['info_stealer'])
-            if email in added_emails:
-                emails.extend(added_emails[email])
+            for entry in data['emails']:
+                passwords = []
+                emails = entry['emails']
+                info_stealer = []
+                for email in entry['emails']:
+                    if email in result:
+                        if 'passwords' in result[email]:
+                            passwords.extend(result[email]['passwords'])
+                        if 'info_stealer' in result[email]:
+                            info_stealer.extend(result[email]['info_stealer'])
+                    if email in added_emails:
+                        emails.extend(added_emails[email])
 
-        entry['passwords'] = passwords
-        entry['emails'] = list(set(emails))
-        entry['info_stealer'] = info_stealer
+                entry['passwords'] = passwords
+                entry['emails'] = list(set(emails))
+                entry['info_stealer'] = info_stealer
+
+            final_result.extend(data['emails'])
 
     # Save everything
     with open('local/output.json', 'w') as file_data:
-        json.dump(data, file_data, indent=4)
+        unique_objects = list({obj["id"]: obj for obj in final_result if len(obj["passwords"]) > 0 or
+                               len(obj["info_stealer"]) > 0}.values())
+        json.dump(unique_objects, file_data, indent=4)
