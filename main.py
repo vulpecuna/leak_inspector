@@ -1,7 +1,7 @@
 import json
 import hudsonrocks.info_stealer_check
 import leakcheck.breaches_details
-import proxynova.email_leaks
+import proxynova.leaked_passwords
 import utils.args
 import utils.logs
 
@@ -17,7 +17,7 @@ try:
     while emails:
         # Iterate all emails
         for original_email, email_to_test in emails:
-            passwords, new_emails = proxynova.email_leaks.get(args, email_to_test)
+            passwords, new_emails = proxynova.leaked_passwords.get(args, email_to_test)
             info_stealer = hudsonrocks.info_stealer_check.get(args, email_to_test)
             breaches, is_password_exposed = leakcheck.breaches_details.get(args, email_to_test)
 
@@ -65,6 +65,7 @@ try:
                 added_emails[next_src].append(email)
     emails_next = {}
 finally:
+    leakcheck_message = False
     final_result = []
     for input_file in args.sources:
         with open(input_file, 'r') as file:
@@ -94,7 +95,11 @@ finally:
                 entry['breaches'] = breaches
 
                 if is_password_exposed and len(passwords) == 0:
-                    utils.logs.warning(f"Password was exposed in breaches, not none were found for: {entry['id']}")
+                    if not leakcheck_message:
+                        utils.logs.info(f"You can view additional censored passwords (for free) at "
+                                        f"'https://leakcheck.io' for at least one email.")
+                        leakcheck_message = True
+                    utils.logs.warning(f"[LEAKCHECK] Password was exposed in breaches, not none were found for: {entry['id']} ({entry['emails']})")
 
             final_result.extend(data['emails'])
 

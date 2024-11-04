@@ -1,18 +1,25 @@
 # Leak Inspector
 
-Leak Inspector processes a list of emails to find leaked passwords using external APIs. If similar emails are found with the same exact password, they are processed and assumed to be owned by the same user.
+Leak Inspector is a tool that processes a list of emails to identify leaked passwords using various external APIs. It assumes that similar emails with the same exact password belong to the same user.
 
-* [HudsonRock API](https://cavalier.hudsonrock.com/docs) 🛻: provides API access to their known list of infected devices
-* [LeakCheck](https://leakcheck.io/) 🛻: find breaches and exposed fields
-* [ProxyNova API](https://www.proxynova.com/tools/comb)  🛻: provides API access to the COMB breach
-* [BreachDirectory](https://breachdirectory.org/) 💵: paid, not tested, not implemented
-* [DeHashed](https://dehashed.com/) 💵: paid, not tested, not implemented
-* [Intelligence X](https://intelx.io/) 💵: paid, not tested, not implemented
-* [LeakedDomains](https://leaked.domains) 💵: paid, not tested, not implemented
-* [LeakLookup](https://leak-lookup.com/) 💵: paid, not tested, not implemented
-* [ShatteredSecrets](https://scatteredsecrets.com/) 💵: paid, not tested, not implemented
-* [Snusbase](https://www.snusbase.com) 💵: paid, not tested, not implemented
-* [WeLeakInfo](https://weleakinfo.io/) 💵: paid, not tested, not implemented
+Currently supported APIs:
+
+* [HudsonRock API](https://cavalier.hudsonrock.com/docs) 🛻: Accesses a known list of infected devices.
+* [LeakCheck API](https://leakcheck.io/) 🛻: Finds breaches and exposed fields.
+* [ProxyNova API](https://www.proxynova.com/tools/comb)  🛻: Provides access to the COMB breach.
+
+Well-known platforms that we may add:
+
+* [Aura](https://scan.aura.com/) 🛻 : show censured passwords from their website. Sadly, there is no API.
+* [BreachDirectory](https://breachdirectory.org/) 🛻💵 ($8 for 1000 credits): Access to credential leaks (free version is censored).
+* [DeHashed](https://dehashed.com/) ($30 for 1000 credits) 💵: Access to credential leaks.
+* [Intelligence X](https://intelx.io/) ($2500/year) 💵: Access to credential leaks.
+* [LeakedDomains](https://leaked.domains) ($750 for 500 credits) 💵: Access to credential leaks.
+* [LeakLookup](https://leak-lookup.com/) ($100 for 300 credits) 💵: Access to credential leaks.
+* [LeakPeek](https://leakpeek.com/) ($10 for a month) 💵: Access to credential leaks.
+* [Snusbase](https://www.snusbase.com) ($333 for lifetime, $17 for a month) 💵: Access to credential leaks.
+* [WeLeakInfo](https://weleakinfo.io/) ($125 for lifetime, $40 for a month) 💵: Access to credential leaks.
+* [DDoSecrets](https://data.ddosecrets.com/?C=M&O=A) 🛻: Free credentials leaks available for download.
 
 This tool is intended for use with "linkedin_osint" tools such as [linkedin_nubela_osint](https://github.com/vulpecuna/linkedin_nubela_osint) or [linkedin_rocketreach_osint](https://github.com/vulpecuna/linkedin_rocketreach_osint). The following input file format is required at a minimum:
 
