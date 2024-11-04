@@ -17,7 +17,9 @@ def get(args, target_email):
             'limit': '15',
         }
 
-        data = proxynova.handle_api_request(args, api_endpoint, params, log_file_path)
+        data = proxynova.handle_api_request(args, api_endpoint, params, log_file_path, {
+            'lines': []
+        })
     else:
         utils.logs.ok(f"Read {log_file_path}")
         with open(log_file_path, 'r') as json_file:

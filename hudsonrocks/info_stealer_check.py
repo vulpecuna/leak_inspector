@@ -13,7 +13,7 @@ def get(args, target_email):
             'email': target_email
         }
 
-        data = hudsonrocks.handle_api_request(args, api_endpoint, params, log_file_path)
+        data = hudsonrocks.handle_api_request(args, api_endpoint, params, log_file_path, None)
     else:
         utils.logs.ok(f"Read {log_file_path}")
         with open(log_file_path, 'r') as json_file:

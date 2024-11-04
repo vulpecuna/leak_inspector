@@ -3,7 +3,11 @@ import requests
 import utils.logs
 
 
-def handle_api_request(args, api_endpoint, params, log_file_path):
+def handle_api_request(args, api_endpoint, params, log_file_path, default):
+    # Return an empty result
+    if not args.hudson_enabled:
+        return default
+
     response = requests.get(api_endpoint, params=params)
 
     try:

@@ -14,13 +14,15 @@ Leak Inspector processes a list of emails to find leaked passwords using externa
 * [Snusbase](https://www.snusbase.com): paid, not tested, not implemented
 * [WeLeakInfo](https://weleakinfo.io/): paid, not tested, not implemented
 
-This tool is intended for use with [linkedin_osint](https://github.com/vulpecuna/linkedin_osint). The following input file format is required at a minimum:
+This tool is intended for use with "linkedin_osint" tools such as [linkedin_nubela_osint](https://github.com/vulpecuna/linkedin_nubela_osint) or [linkedin_rocketreach_osint](https://github.com/vulpecuna/linkedin_rocketreach_osint). The following input file format is required at a minimum:
 
 ```json!
 {
     "emails": [
         {
             "id": "abc-def-012345",
+            "first_name": "optional",
+            "last_name": "optional",
             "emails": [
                 "dummy@gmail.com"
             ]
