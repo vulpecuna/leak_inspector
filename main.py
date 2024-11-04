@@ -1,7 +1,9 @@
 import json
 import hudsonrocks.info_stealer_check
+import leakcheck.breaches_details
 import proxynova.email_leaks
 import utils.args
+import utils.logs
 
 args = utils.args.parse()
 
@@ -17,6 +19,7 @@ try:
         for original_email, email_to_test in emails:
             passwords, new_emails = proxynova.email_leaks.get(args, email_to_test)
             info_stealer = hudsonrocks.info_stealer_check.get(args, email_to_test)
+            breaches, is_password_exposed = leakcheck.breaches_details.get(args, email_to_test)
 
             if original_email not in result:
                 result[original_email] = {}
@@ -32,6 +35,16 @@ try:
                 if 'info_stealer' not in result[original_email]:
                     result[original_email]['info_stealer'] = []
                 result[original_email]['info_stealer'].extend(info_stealer['stealers'])
+
+            # Store the breach details
+            if 'breaches' not in result[original_email]:
+                result[original_email]['breaches'] = {
+                    'password_leaked': False,
+                    'list': []
+                }
+            if is_password_exposed:
+                result[original_email]['breaches']['password_leaked'] = True
+            result[original_email]['breaches']['list'].extend(breaches)
 
             # Add the new email candidates
             if len(new_emails) > 0:
@@ -61,18 +74,27 @@ finally:
                 passwords = []
                 emails = entry['emails']
                 info_stealer = []
+                breaches = []
+                is_password_exposed = False
                 for email in entry['emails']:
                     if email in result:
                         if 'passwords' in result[email]:
                             passwords.extend(result[email]['passwords'])
                         if 'info_stealer' in result[email]:
                             info_stealer.extend(result[email]['info_stealer'])
+                        if 'breaches' in result[email]:
+                            is_password_exposed = result[email]['breaches']['password_leaked']
+                            breaches.extend(result[email]['breaches']['list'])
                     if email in added_emails:
                         emails.extend(added_emails[email])
 
                 entry['passwords'] = passwords
                 entry['emails'] = list(set(emails))
                 entry['info_stealer'] = info_stealer
+                entry['breaches'] = breaches
+
+                if is_password_exposed and len(passwords) == 0:
+                    utils.logs.warning(f"Password was exposed in breaches, not none were found for: {entry['id']}")
 
             final_result.extend(data['emails'])
 

@@ -19,6 +19,7 @@ class ProgramArgs:
 
         self.proxynova_enabled = args.proxynova_enabled
         self.hudson_enabled = args.hudson_enabled
+        self.leakcheck_enabled = args.leakcheck_enabled
 
 
 def _file_exists(file_path):
@@ -40,6 +41,7 @@ def parse():
     parser.add_argument('-a', '--all', dest='all_enabled', action='store_true', help='Enable every API for uncached results (default: disabled)')
     parser.add_argument('--hudson', dest='hudson_enabled', action='store_true', help='Enable HudsonRocks API for uncached results (default: disabled)')
     parser.add_argument('--proxynova', dest='proxynova_enabled', action='store_true', help='Enable ProxyNova API for uncached results (default: disabled)')
+    parser.add_argument('--leakcheck', dest='leakcheck_enabled', action='store_true', help='Enable LeakCheck APIs for uncached results (default: disabled)')
 
     # Parse the arguments
     raw_args = parser.parse_args()
@@ -47,8 +49,9 @@ def parse():
     if raw_args.all_enabled:
         setattr(raw_args, 'hudson_enabled', True)
         setattr(raw_args, 'proxynova_enabled', True)
+        setattr(raw_args, 'leakcheck_enabled', True)
 
-    if not raw_args.proxynova_enabled and not raw_args.hudson_enabled:
+    if not raw_args.proxynova_enabled and not raw_args.hudson_enabled and not raw_args.leakcheck_enabled:
         parser.error(f"At least one API must be enabled. Please specify which APIs to use.")
 
     return ProgramArgs(raw_args)
