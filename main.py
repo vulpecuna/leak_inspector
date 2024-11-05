@@ -2,7 +2,10 @@ import json
 import hudsonrocks.info_stealer_check
 import leakcheck.breaches_details
 import proxynova.leaked_passwords
+import snusbase.domain_search
+import snusbase.leaked_passwords
 import utils.args
+import utils.export
 import utils.logs
 
 args = utils.args.parse()
@@ -13,6 +16,13 @@ emails_done = []
 added_emails = {}
 result = {}
 
+# Compute domain emails
+domain_emails = []
+if args.domain:
+    domain_emails.extend(snusbase.domain_search.get(args, args.domain))
+    domain_emails = [(email, email) for email in domain_emails if email not in emails]
+    emails.extend(domain_emails)
+
 try:
     while emails:
         # Iterate all emails
@@ -20,6 +30,9 @@ try:
             passwords, new_emails = proxynova.leaked_passwords.get(args, email_to_test)
             info_stealer = hudsonrocks.info_stealer_check.get(args, email_to_test)
             breaches, is_password_exposed = leakcheck.breaches_details.get(args, email_to_test)
+
+            passwords2, hashes = snusbase.leaked_passwords.get(args, email_to_test)
+            passwords.extend(passwords2)
 
             if original_email not in result:
                 result[original_email] = {}
@@ -29,6 +42,12 @@ try:
                 if 'password' not in result[original_email]:
                     result[original_email]['passwords'] = []
                 result[original_email]['passwords'].extend(passwords)
+
+            # Store the hashes
+            if len(hashes) > 0:
+                if 'hashes' not in result[original_email]:
+                    result[original_email]['hashes'] = []
+                result[original_email]['hashes'].extend(hashes)
 
             # Store the stealer data
             if info_stealer is not None:
@@ -70,40 +89,22 @@ finally:
     for input_file in args.sources:
         with open(input_file, 'r') as file:
             data = json.load(file)
-
+            # Update and add each entry
             for entry in data['emails']:
-                passwords = []
-                emails = entry['emails']
-                info_stealer = []
-                breaches = []
-                is_password_exposed = False
-                for email in entry['emails']:
-                    if email in result:
-                        if 'passwords' in result[email]:
-                            passwords.extend(result[email]['passwords'])
-                        if 'info_stealer' in result[email]:
-                            info_stealer.extend(result[email]['info_stealer'])
-                        if 'breaches' in result[email]:
-                            is_password_exposed = result[email]['breaches']['password_leaked']
-                            breaches.extend(result[email]['breaches']['list'])
-                    if email in added_emails:
-                        emails.extend(added_emails[email])
+                final_result.append(utils.export.compute_entry(entry, result, added_emails))
 
-                entry['passwords'] = passwords
-                entry['emails'] = list(set(emails))
-                entry['info_stealer'] = info_stealer
-                entry['breaches'] = breaches
+    # Add new entries
+    for domain_email in domain_emails:
+        final_result.append(utils.export.compute_entry({
+            "id": domain_email,
+            "first_name": None,
+            "last_name": None,
+            "emails": [
+                domain_email
+            ]
+        }, result, added_emails))
 
-                if is_password_exposed and len(passwords) == 0:
-                    if not leakcheck_message:
-                        utils.logs.info(f"You can view additional censored passwords (for free) at "
-                                        f"'https://leakcheck.io' for at least one email.")
-                        leakcheck_message = True
-                    utils.logs.warning(f"[LEAKCHECK] Password was exposed in breaches, not none were found for: {entry['id']} ({entry['emails']})")
-
-            final_result.extend(data['emails'])
-
-    # Save everything
+    # Save everything without duplicates
     with open('local/output.json', 'w') as file_data:
         unique_objects = list({obj["id"]: obj for obj in final_result if len(obj["passwords"]) > 0 or
                                len(obj["info_stealer"]) > 0}.values())

@@ -54,4 +54,4 @@ def get(args, target_email):
                 new_emails.append(username)
                 already_checked.append(username)
 
-    return list(set(passwords)), new_emails
+    return passwords, new_emails

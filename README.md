@@ -7,6 +7,7 @@ Currently supported APIs:
 * [HudsonRock API](https://cavalier.hudsonrock.com/docs) 🛻: Accesses a known list of infected devices.
 * [LeakCheck API](https://leakcheck.io/) 🛻: Finds breaches and exposed fields.
 * [ProxyNova API](https://www.proxynova.com/tools/comb)  🛻: Provides access to the COMB breach.
+* [Snusbase](https://www.snusbase.com) ($333 for lifetime, $17 for a month) 💵: Access to credential leaks. API [rate limit](https://docs.snusbase.com/) is 2,048 searches per 12 hours. You can find records per email, IP, LinkedIn URL (*sometimes*), username, name, password, hash, or domain.
 
 Well-known platforms that we may add:
 
@@ -17,7 +18,6 @@ Well-known platforms that we may add:
 * [LeakedDomains](https://leaked.domains) ($750 for 500 credits) 💵: Access to credential leaks.
 * [LeakLookup](https://leak-lookup.com/) ($100 for 300 credits) 💵: Access to credential leaks.
 * [LeakPeek](https://leakpeek.com/) ($10 for a month) 💵: Access to credential leaks.
-* [Snusbase](https://www.snusbase.com) ($333 for lifetime, $17 for a month) 💵: Access to credential leaks.
 * [WeLeakInfo](https://weleakinfo.io/) ($125 for lifetime, $40 for a month) 💵: Access to credential leaks.
 * [DDoSecrets](https://data.ddosecrets.com/?C=M&O=A) 🛻: Free credentials leaks available for download.
 
