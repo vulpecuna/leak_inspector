@@ -35,3 +35,6 @@ def ok(message):
 
 def info(message):
     _print(colorama.Fore.BLUE, '[>]', message)
+
+def notice(message):
+    _print(colorama.Fore.WHITE, '[*]', message)

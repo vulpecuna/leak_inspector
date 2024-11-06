@@ -20,6 +20,8 @@ def get(args, target_email):
             data = json.loads(json_file.read())
 
     if "This email address is not associated with a computer infected by an info-stealer." not in data['message']:
-        return data
+        value = data
+    else:
+        value = None
 
-    return None
+    args.manager.push('hudsonrocks', 'info_stealer', value)

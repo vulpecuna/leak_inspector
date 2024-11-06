@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import utils.stats
 
 
 class ProgramArgs:
@@ -22,6 +23,8 @@ class ProgramArgs:
         self.hudson_enabled = args.hudson_enabled
         self.leakcheck_enabled = args.leakcheck_enabled
         self.snusbase_api_key = args.snusbase_api_key
+
+        self.manager = utils.stats.DataManager()
 
 
 def _file_exists(file_path):

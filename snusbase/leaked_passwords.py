@@ -66,4 +66,5 @@ def get(args, target_email):
                     c = entry['hash']
                 hashes.append(c.strip())
 
-    return passwords, hashes
+    args.manager.push('snusbase', 'passwords', passwords)
+    args.manager.push('snusbase', 'hashes', hashes)

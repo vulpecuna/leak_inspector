@@ -27,4 +27,5 @@ def get(args, target_domain):
         for entry in breach_data:
             if 'email' in entry:
                 emails.append(entry['email'])
+
     return list(set(emails))

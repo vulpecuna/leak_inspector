@@ -22,4 +22,5 @@ def get(args, target_email):
         with open(log_file_path, 'r') as json_file:
             data = json.loads(json_file.read())
 
-    return data['sources'] if 'sources' in data else [], 'password' in data['fields'] if 'fields' in data else False
+    args.manager.push('leakcheck', 'breaches', data['sources'] if 'sources' in data else [])
+    args.manager.push('leakcheck', 'is_password_exposed', 'password' in data['fields'] if 'fields' in data else False)

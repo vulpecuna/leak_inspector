@@ -27,12 +27,12 @@ try:
     while emails:
         # Iterate all emails
         for original_email, email_to_test in emails:
-            passwords, new_emails = proxynova.leaked_passwords.get(args, email_to_test)
-            info_stealer = hudsonrocks.info_stealer_check.get(args, email_to_test)
-            breaches, is_password_exposed = leakcheck.breaches_details.get(args, email_to_test)
+            proxynova.leaked_passwords.get(args, email_to_test)
+            hudsonrocks.info_stealer_check.get(args, email_to_test)
+            leakcheck.breaches_details.get(args, email_to_test)
+            snusbase.leaked_passwords.get(args, email_to_test)
 
-            passwords2, hashes = snusbase.leaked_passwords.get(args, email_to_test)
-            passwords.extend(passwords2)
+            passwords, new_emails, info_stealer, breaches, is_password_exposed, hashes = args.manager.pop()
 
             if original_email not in result:
                 result[original_email] = {}
@@ -88,9 +88,9 @@ finally:
     final_result = []
     for input_file in args.sources:
         with open(input_file, 'r') as file:
-            data = json.load(file)
+            entries = json.load(file)
             # Update and add each entry
-            for entry in data['emails']:
+            for entry in entries:
                 final_result.append(utils.export.compute_entry(entry, result, added_emails))
 
     # Add new entries
@@ -110,3 +110,8 @@ finally:
         unique_objects = list({obj["id"]: obj for obj in final_result if len(obj["passwords"]) > 0 or
                                len(obj["hashes"]) > 0 or len(obj["info_stealer"]) > 0}.values())
         json.dump(unique_objects, file_data, indent=4)
+
+    # Show stats
+    print()
+
+    args.manager.stats()

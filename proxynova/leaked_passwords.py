@@ -54,4 +54,5 @@ def get(args, target_email):
                 new_emails.append(username)
                 already_checked.append(username)
 
-    return passwords, new_emails
+    args.manager.push('proxynova', 'passwords', passwords)
+    args.manager.push('proxynova', 'new_emails', new_emails)
