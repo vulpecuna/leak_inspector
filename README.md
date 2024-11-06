@@ -7,7 +7,7 @@ Currently supported APIs:
 * [HudsonRock API](https://cavalier.hudsonrock.com/docs) 🛻: Accesses a known list of infected devices.
 * [LeakCheck API](https://leakcheck.io/) 🛻: Finds breaches and exposed fields.
 * [ProxyNova API](https://www.proxynova.com/tools/comb)  🛻: Provides access to the COMB breach.
-* [Snusbase](https://www.snusbase.com) ($333 for lifetime, $17 for a month) 💵: Access to credential leaks. API [rate limit](https://docs.snusbase.com/) is 2,048 searches per 12 hours. You can find records per email, IP, LinkedIn URL (*sometimes*), username, name, password, hash, or domain.
+* [Snusbase](https://www.snusbase.com) ($333 for lifetime, $17 for a month) 💵: Access to credential leaks. API [rate limit](https://docs.snusbase.com/) is 2,048 searches per 12 hours. You can search by email, IP, LinkedIn URL (*sometimes*), username, name, password, hash, or domain.
 
 Well-known platforms that we may add:
 
@@ -24,16 +24,14 @@ Well-known platforms that we may add:
 This tool is intended for use with "linkedin_osint" tools such as [linkedin_nubela_osint](https://github.com/vulpecuna/linkedin_nubela_osint) or [linkedin_rocketreach_osint](https://github.com/vulpecuna/linkedin_rocketreach_osint). The following input file format is required at a minimum:
 
 ```json!
-{
-    "emails": [
-        {
-            "id": "abc-def-012345",
-            "first_name": "optional",
-            "last_name": "optional",
-            "emails": [
-                "dummy@gmail.com"
-            ]
-        }
-    ]
-}
+[
+    {
+        "id": "abc-def-012345",
+        "first_name": "optional",
+        "last_name": "optional",
+        "emails": [
+            "dummy@gmail.com"
+        ]
+    }
+]
 ```

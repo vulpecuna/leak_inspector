@@ -36,6 +36,6 @@ def compute_entry(entry, result, added_emails):
             utils.logs.info(f"You can view additional censored passwords (for free) at "
                             f"'https://leakcheck.io' for at least one email.")
             leakcheck_message = True
-        utils.logs.warning(f"[LEAKCHECK] Password was exposed in breaches, not none were found for: {entry['id']} ({entry['emails']})")
+        utils.logs.warning(f"Password was exposed in breaches, not none were found for: {entry['id']} ({entry['emails']})")
 
     return entry

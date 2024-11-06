@@ -95,17 +95,18 @@ finally:
 
     # Add new entries
     for domain_email in domain_emails:
+        k, _ = domain_email
         final_result.append(utils.export.compute_entry({
-            "id": domain_email,
+            "id": k,
             "first_name": None,
             "last_name": None,
             "emails": [
-                domain_email
+                k
             ]
         }, result, added_emails))
 
     # Save everything without duplicates
     with open('local/output.json', 'w') as file_data:
         unique_objects = list({obj["id"]: obj for obj in final_result if len(obj["passwords"]) > 0 or
-                               len(obj["info_stealer"]) > 0}.values())
+                               len(obj["hashes"]) > 0 or len(obj["info_stealer"]) > 0}.values())
         json.dump(unique_objects, file_data, indent=4)

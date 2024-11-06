@@ -9,8 +9,8 @@ class ProgramArgs:
 
         for input_file in args.scrapped_data:
             with open(input_file, 'r') as file:
-                data = json.load(file)
-            for entry in data['emails']:
+                entries = json.load(file)
+            for entry in entries:
                 for email in entry['emails']:
                     emails.append((email, email))
 
