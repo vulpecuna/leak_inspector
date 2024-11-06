@@ -47,7 +47,7 @@ class DataManager:
                 _s = value[0]
                 if isinstance(_s, str):
                     value = list(set(value))
-                utils.logs.notice(f'[{key:10} --> {attribute:10}] Found {len(value)} unique values.')
+                utils.logs.notice(f'[{key:20} --> {attribute:10}] Found {len(value)} unique values.')
 
         for exclusive_attribute in ['passwords', 'hashes']:
             for key, attributes in self.index.items():
@@ -63,7 +63,7 @@ class DataManager:
                 all_passwords = list(set(all_passwords))
                 unique_passwords = [p for p in passwords if p not in all_passwords]
 
-                utils.logs.notice(f'[{key:10} --> {exclusive_attribute:10}] Found {len(unique_passwords)} exclusive {exclusive_attribute}.')
+                utils.logs.notice(f'[{key:20} --> {exclusive_attribute:10}] Found {len(unique_passwords)} exclusive {exclusive_attribute}.')
 
     def reset(self):
         self.passwords = []

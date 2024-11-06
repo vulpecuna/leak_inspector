@@ -91,12 +91,12 @@ finally:
             entries = json.load(file)
             # Update and add each entry
             for entry in entries:
-                final_result.append(utils.export.compute_entry(entry, result, added_emails))
+                final_result.append(utils.export.compute_entry(args, entry, result, added_emails))
 
     # Add new entries
     for domain_email in domain_emails:
         k, _ = domain_email
-        final_result.append(utils.export.compute_entry({
+        final_result.append(utils.export.compute_entry(args, {
             "id": k,
             "first_name": None,
             "last_name": None,
