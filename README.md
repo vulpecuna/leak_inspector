@@ -5,6 +5,7 @@ Leak Inspector is a tool that processes a list of emails to identify leaked pass
 Currently supported APIs:
 
 * [BreachDirectory](https://breachdirectory.org/) 🛻💵 ($8 for 1000 credits): Access to censored leaked credentials. Implementation only calls this API if we know a password was leaked, but we didn't get one from other APIs.
+* [HashMob](https://hashmob.net) 🛻: Discover plaintext passwords for cracked hashes. You are given 500 credits per hour for free. Five dollars are worth 50k credits.
 * [HudsonRock API](https://cavalier.hudsonrock.com/docs) 🛻: Accesses a known list of infected devices.
 * [LeakCheck API](https://leakcheck.io/) 🛻: Finds breaches and exposed fields.
 * [ProxyNova API](https://www.proxynova.com/tools/comb)  🛻: Provides access to the COMB breach.

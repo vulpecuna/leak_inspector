@@ -45,9 +45,10 @@ class DataManager:
 
         for key, attributes in self.index.items():
             for attribute, value in attributes.items():
-                _s = value[0]
-                if isinstance(_s, str):
-                    value = list(set(value))
+                if len(value) > 0:
+                    _s = value[0]
+                    if isinstance(_s, str):
+                        value = list(set(value))
                 utils.logs.notice(f'[{key:20} --> {attribute:10}] Found {len(value)} unique values.')
 
         for exclusive_attribute in ['passwords', 'hashes']:

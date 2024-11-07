@@ -24,6 +24,7 @@ class ProgramArgs:
         self.leakcheck_enabled = args.leakcheck_enabled
         self.snusbase_api_key = args.snusbase_api_key
         self.breach_directory_api_key = args.breach_directory_api_key
+        self.hashmob_api_key = args.hashmob_api_key
 
         self.manager = utils.stats.DataManager()
 
@@ -56,6 +57,7 @@ def parse():
     parser.add_argument('--leakcheck', dest='leakcheck_enabled', action='store_true', help='Enable LeakCheck APIs for uncached results (default: disabled)')
     parser.add_argument('--snusbase', type=str, dest='snusbase_api_key', default=None, help='Use your API key to access Snusbase APIs for uncached results (default: disabled)')
     parser.add_argument('--breachdir', type=str, dest='breach_directory_api_key', default=None, help='Use your API key to access BreachDirectory APIs for uncached results (default: disabled)')
+    parser.add_argument('--hashmob', type=str, dest='hashmob_api_key', default=None, help='Use your API key to access HashMob APIs for uncached results (default: disabled)')
 
     # Parse the arguments
     raw_args = parser.parse_args()
@@ -66,7 +68,7 @@ def parse():
         setattr(raw_args, 'leakcheck_enabled', True)
 
     is_enabled = raw_args.proxynova_enabled or raw_args.hudson_enabled or raw_args.leakcheck_enable
-    is_enabled = is_enabled or raw_args.snusbase_api_key or raw_args.breach_directory_api_key
+    is_enabled = is_enabled or raw_args.snusbase_api_key or raw_args.breach_directory_api_key or raw_args.hashmob_api_key
     if not is_enabled:
         parser.error(f"At least one API must be enabled. Please specify which APIs to use.")
 
