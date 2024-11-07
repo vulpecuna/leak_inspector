@@ -30,13 +30,14 @@ class DataManager:
 
     def pop(self):
         passwords = list(set(self.passwords))
-        new_emails = list(set(self.new_emails))
+        new_emails = [e.lower() for e in set(self.new_emails)]
         info_stealer = self.info_stealer
         breaches = self.breaches
         is_password_exposed = self.is_password_exposed
         hashes = list(set(self.hashes))
+        ips = list(set(self.ips))
         self.reset()
-        return passwords, new_emails, info_stealer, breaches, is_password_exposed, hashes
+        return passwords, new_emails, info_stealer, breaches, is_password_exposed, hashes, ips
 
 
     def stats(self):
@@ -72,3 +73,4 @@ class DataManager:
         self.breaches = []
         self.is_password_exposed = False
         self.hashes = []
+        self.ips = []

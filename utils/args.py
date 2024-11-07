@@ -13,7 +13,7 @@ class ProgramArgs:
                 entries = json.load(file)
             for entry in entries:
                 for email in entry['emails']:
-                    emails.append((email, email))
+                    emails.append((email.lower(), email.lower()))
 
         self.emails = list(set(emails))
         self.sources = args.scrapped_data

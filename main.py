@@ -20,7 +20,7 @@ result = {}
 domain_emails = []
 if args.domain:
     domain_emails.extend(snusbase.domain_search.get(args, args.domain))
-    domain_emails = [(email, email) for email in domain_emails if email not in emails]
+    domain_emails = [(email.lower(), email.lower()) for email in domain_emails if email not in emails]
     emails.extend(domain_emails)
 
 try:
@@ -32,7 +32,8 @@ try:
             leakcheck.breaches_details.get(args, email_to_test)
             snusbase.leaked_passwords.get(args, email_to_test)
 
-            passwords, new_emails, info_stealer, breaches, is_password_exposed, hashes = args.manager.pop()
+            (passwords, new_emails, info_stealer, breaches, is_password_exposed,
+             hashes, ips) = args.manager.pop()
 
             if original_email not in result:
                 result[original_email] = {}

@@ -51,6 +51,7 @@ def get(args, target_email):
     breaches = data['results']
     passwords = []
     hashes = []
+    ips = []
     for _, breach_data in breaches.items():
         for entry in breach_data:
             if 'password' in entry:
@@ -65,6 +66,9 @@ def get(args, target_email):
                 else:
                     c = entry['hash']
                 hashes.append(c.strip())
+            if 'lastip' in entry:
+                ips.append(entry['lastip'])
 
     args.manager.push('snusbase', 'passwords', passwords)
     args.manager.push('snusbase', 'hashes', hashes)
+    args.manager.push('snusbase', 'ips', ips)

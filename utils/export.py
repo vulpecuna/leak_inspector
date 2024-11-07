@@ -36,7 +36,7 @@ def compute_entry(args, entry, result, added_emails):
 
     entry['passwords'] = list(set(passwords))
     entry['hashes'] = list(set(hashes))
-    entry['emails'] = list(set(emails))
+    entry['emails'] = [e.lower() for e in set(emails)]
     entry['info_stealer'] = info_stealer
     entry['breaches'] = breaches
 
